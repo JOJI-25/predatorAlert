@@ -11,6 +11,7 @@ class Settings(BaseSettings):
     # Firebase (Firestore + FCM only)
     firebase_project_id: str = ""
     google_application_credentials: str = "./firebase-credentials.json"
+    google_application_credentials_json: str = ""  # New: for Render env var support
     
     # Cloudinary (Image Storage)
     cloudinary_cloud_name: str = ""

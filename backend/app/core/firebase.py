@@ -24,14 +24,27 @@ def initialize_firebase() -> None:
     settings = get_settings()
     
     cred_path = settings.google_application_credentials
+    json_creds = settings.google_application_credentials_json
     
-    if not os.path.exists(cred_path):
+    # Priority 1: JSON from environment variable (Render)
+    if json_creds:
+        import json
+        try:
+            cred_dict = json.loads(json_creds)
+            cred = credentials.Certificate(cred_dict)
+            print("[+] Loaded Firebase credentials from environment JSON")
+        except json.JSONDecodeError as e:
+            raise ValueError(f"Invalid JSON in google_application_credentials_json: {e}")
+            
+    # Priority 2: File path (Local Development)
+    elif os.path.exists(cred_path):
+        cred = credentials.Certificate(cred_path)
+        print(f"[+] Loaded Firebase credentials from file: {cred_path}")
+        
+    else:
         raise FileNotFoundError(
-            f"Firebase credentials file not found: {cred_path}. "
-            "Download service account JSON from Firebase Console."
+            f"Firebase credentials not found. Set GOOGLE_APPLICATION_CREDENTIALS_JSON env var or place file at {cred_path}"
         )
-    
-    cred = credentials.Certificate(cred_path)
     
     # Initialize WITHOUT storage bucket (using Cloudinary instead)
     _firebase_app = firebase_admin.initialize_app(cred)
