@@ -63,7 +63,7 @@ async def detection_status(
         "operational": True,
         "cooldown_seconds": 30,
         "predator_animals": [
-            "leopard", "tiger", "lion", "wolf", 
-            "hyena", "bear", "crocodile"
+            "Bear", "Elephant", "Leopard", "Monkey", 
+            "Snake", "Tiger", "Wild-Boar", "Porcupine"
         ]
     }

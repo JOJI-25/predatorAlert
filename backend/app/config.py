@@ -23,7 +23,7 @@ class Settings(BaseSettings):
     
     # Detection Settings
     cooldown_seconds: int = 30
-    predator_animals: str = "leopard,tiger,lion,wolf,hyena,bear,crocodile"
+    predator_animals: str = "Bear,Elephant,Leopard,Monkey,Snake,Tiger,Wild-Boar,Porcupine"
     
     # Server
     host: str = "0.0.0.0"
